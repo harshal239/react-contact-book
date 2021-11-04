@@ -1,24 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { uuid } from "uuidv4";
+import { Container } from "semantic-ui-react";
+import "./App.css";
+import AddContact from "./components/AddContact";
+import ContactList from "./components/ContactList";
+import Header from "./components/Header";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ContactDetail from "./components/ContactDetail";
 
 function App() {
+  const LOCAL_STORAGE_KEY = "contacts";
+  const [contacts, setContacts] = useState([]);
+
+  const AddContactHandler = (contact) => {
+    setContacts([...contacts, { id: uuid(), ...contact }]);
+  };
+  const removeContactHandler = (id) => {
+    const newContactList = contacts.filter((contact) => {
+      return contact.id !== id;
+    });
+    setContacts(newContactList);
+  };
+
+  useEffect(() => {
+    const retrieveContacts = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY)
+    );
+    if (retrieveContacts) {
+      setContacts(retrieveContacts);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
+  }, [contacts]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <ContactList
+              contacts={contacts}
+              removeContactHandler={removeContactHandler}
+            />
+          </Route>
+          <Route path="/add">
+            <AddContact AddContactHandler={AddContactHandler} />
+          </Route>
+          <Route
+            path="/contact/:id"
+            render={(props) => <ContactDetail {...props} />}
+          />
+        </Switch>
+      </Router>
+    </Container>
   );
 }
 
