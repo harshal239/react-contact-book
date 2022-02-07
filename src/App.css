@@ -5,10 +5,14 @@
   justify-content: center;
   padding: 10px;
 }
-.ui.search input {
+.search .input {
+  margin: 1.5rem 0;
   width: 100%;
-  border-radius: 0;
 }
+.search .prompt {
+  border-radius: 0.28571429rem !important;
+}
+
 .item {
   padding: 1rem 0rem !important;
 }
@@ -16,6 +20,7 @@
 .icon {
   float: right;
   cursor: pointer;
+  margin-left: 0.5rem !important;
 }
 .center-div {
   text-align: center;

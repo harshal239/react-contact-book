@@ -3,7 +3,7 @@ import { Button, Modal, Transition } from "semantic-ui-react";
 
 function DeleteContact({ open, setOpen, id, removeContactHandler }) {
   return (
-    <Transition visible={open} animation="fade" duration={500}>
+    <Transition visible={open} animation="fade" duration={1000}>
       <Modal
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}

@@ -28,8 +28,12 @@ function ContactCard({ contact, removeContactHandler }) {
           name="trash alternate outline"
           color="red"
           size="big"
+          className="icon"
           onClick={() => setOpen(true)}
         />
+        <Link to={{ pathname: `/edit/${id}`, state: { contact } }}>
+          <Icon name="edit" color="green" size="big" />
+        </Link>
       </Item>
     </>
   );

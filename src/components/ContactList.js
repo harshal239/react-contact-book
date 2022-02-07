@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import { Button, List } from "semantic-ui-react";
+import { Button, List, Search } from "semantic-ui-react";
 import ContactCard from "./ContactCard";
 
-function ContactList({ contacts, removeContactHandler }) {
+function ContactList({ contacts, removeContactHandler, term, searchKeyword }) {
   const renderContact = contacts.map((contact) => {
     return (
       <ContactCard
@@ -13,6 +13,10 @@ function ContactList({ contacts, removeContactHandler }) {
       />
     );
   });
+
+  const getSearchTerm = (e) => {
+    searchKeyword(e.target.value);
+  };
   return (
     <div className="main">
       <h2>
@@ -23,6 +27,7 @@ function ContactList({ contacts, removeContactHandler }) {
           </Button>
         </Link>
       </h2>
+      <Search noResultsMessage="" value={term} onSearchChange={getSearchTerm} />
       <List celled>{renderContact}</List>
     </div>
   );

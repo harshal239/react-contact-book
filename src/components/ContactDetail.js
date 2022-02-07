@@ -4,7 +4,6 @@ import { Button, Card, Image } from "semantic-ui-react";
 import user from "../images/user.jpg";
 
 function ContactDetail(props) {
-  console.log(props.location.state.contact);
   const { name, email } = props.location.state.contact;
   return (
     <div className="main">
